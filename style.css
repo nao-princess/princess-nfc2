@@ -196,3 +196,30 @@ opacity: 0;
     }
 
 }
+
+#jewel{
+    font-size:120px;
+    text-align:center;
+
+    opacity:1;
+
+    transition:opacity 1s;
+
+    animation:jewelGlow 2s infinite;
+}
+
+@keyframes jewelGlow{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.15);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
