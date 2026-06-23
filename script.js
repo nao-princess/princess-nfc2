@@ -210,7 +210,7 @@ async function startPrincessSequence(){
     //最初はプリンセスを隠す
     princess.style.opacity = "0";
     //従者の声
-    await playAudio("servant.mp3");
+    await playAudio("servant.wav");
 
     //プリンセス登場
     showprincess();
@@ -219,13 +219,13 @@ async function startPrincessSequence(){
     await new Promise(resolve => setTimeout(resolve, 800));
     
     // ① あいさつ固定
-    await playAudio("goodmorning.mp3");
+    await playAudio("goodmorning.wav");
 
     // ② 曜日別音声
     await playAudio(getVoiceByDay());
 
     // ③ プリンセスモード
-    await playAudio("princess_mode_on.mp3");
+    await playAudio("princess_mode_on.wav");
 
     playButton.disabled = false;
 
