@@ -223,3 +223,33 @@ opacity: 0;
     }
 
 }
+
+
+/* ===== スマホ対応 ===== */
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #message {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+
+    #princess {
+        width: 70vw;
+        height: auto;
+        max-height: 55vh;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+
+    #jewel {
+        font-size: 80px;
+    }
+
+}
