@@ -57,9 +57,11 @@ body {
 
 #princess{
 
-    width:340px;
+    width:380px;
 
     max-width:80vw;
+   height:500px;
+   object-fit: contain;
 
     transition:0.12s;
 
