@@ -1,0 +1,195 @@
+/* =======================================
+   プリンセス通信 CSS
+======================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    overflow: hidden;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(
+        180deg,
+        #ffe7ff,
+        #ffd8f5,
+        #ffeefc
+    );
+
+    font-family: "Yu Gothic", sans-serif;
+
+}
+
+/* 背景 */
+
+.background{
+
+    position: fixed;
+
+    width:100%;
+    height:100%;
+
+    z-index:-10;
+
+}
+
+/* プリンセス */
+
+#princessArea{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+#princess{
+
+    width:340px;
+
+    max-width:80vw;
+
+    transition:0.12s;
+
+    user-select:none;
+
+    animation: float 4s ease-in-out infinite;
+
+}
+
+/* ふわふわ浮く */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* メッセージ */
+
+#messageBox{
+
+    margin-top:20px;
+
+    width:85%;
+
+    max-width:600px;
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.15);
+
+}
+
+#messageBox h1{
+
+    color:#ff4db8;
+
+    margin-bottom:10px;
+
+}
+
+#message{
+
+    font-size:20px;
+
+    color:#555;
+
+    line-height:1.8;
+
+}
+
+/* ボタン */
+
+#buttonArea{
+
+    margin-top:25px;
+
+}
+
+#playButton{
+
+    background:#ff66cc;
+
+    color:white;
+
+    border:none;
+
+    padding:18px 35px;
+
+    border-radius:40px;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+#playButton:hover{
+
+    transform:scale(1.08);
+
+}
+
+#playButton:active{
+
+    transform:scale(0.96);
+
+}
+
+/* スマホ */
+
+@media(max-width:700px){
+
+    #princess{
+
+        width:250px;
+
+    }
+
+    #message{
+
+        font-size:18px;
+
+    }
+
+    #playButton{
+
+        font-size:18px;
+
+        padding:15px 28px;
+
+    }
+
+}
