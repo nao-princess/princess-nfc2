@@ -101,10 +101,7 @@ playButton.addEventListener("click",()=>{
     message.textContent="📡 プリンセスから通信を受信しています…";
 
     voice.currentTime=0;
-
-   playButton.addEventListener("click", () => {
     startPrincessSequence();
-});
 
 });
 
@@ -208,6 +205,19 @@ async function startPrincessSequence(){
 
     playButton.disabled = true;
 
+    massage.textContents = "📡 通信中…"
+
+    //最初はプリンセスを隠す
+    princess.style.opacity = "0";
+    //従者の声
+    await playAudio("servent.mp3");
+
+    //プリンセス登場
+    showprincess();
+
+    //少し待つ
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
     // ① あいさつ固定
     await playAudio("goodmorning.mp3");
 
