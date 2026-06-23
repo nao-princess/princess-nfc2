@@ -102,7 +102,9 @@ playButton.addEventListener("click",()=>{
 
     voice.currentTime=0;
 
-    voice.play();
+   playButton.addEventListener("click", () => {
+    startPrincessSequence();
+});
 
 });
 
