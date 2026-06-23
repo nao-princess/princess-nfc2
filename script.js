@@ -233,5 +233,6 @@ async function startPrincessSequence(){
 
 
 function showPrincess(){
+document.getElementById("jewel").style.opacity = "0";
 princess.style.opacity = "1";
 }
