@@ -62,9 +62,9 @@ body {
     max-width:80vw;
    height:500px;
    object-fit: contain;
-  display: block;
+opacity: 0;    
 
-    transition:0.12s;
+    transition:opacity 1s;
 
     user-select:none;
 
