@@ -178,4 +178,43 @@ function getVoiceByDay(){
     }
 }
 
+//==============================
+// 順番再生システム
+//==============================
 
+function playAudio(src){
+
+    return new Promise((resolve)=>{
+
+        voice.src = src;
+        voice.load();
+        voice.play();
+
+        voice.onended = () => {
+            resolve();
+        };
+
+    });
+
+}
+
+//==============================
+// メインシーケンス
+//==============================
+
+async function startPrincessSequence(){
+
+    playButton.disabled = true;
+
+    // ① あいさつ固定
+    await playAudio("goodmorning.mp3");
+
+    // ② 曜日別音声
+    await playAudio(getVoiceByDay());
+
+    // ③ プリンセスモード
+    await playAudio("princess_mode_on.mp3");
+
+    playButton.disabled = false;
+
+}
