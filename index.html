@@ -643,5 +643,40 @@ function communicationBoot() {
     showBubble("プリンセス通信、接続中…🌸");
   }, 300);
 
-  
+ /* =========================
+   🌸プリンセス通信：最終起動
+========================= */
+
+function startPrincessCommunication() {
+
+  // ① 通信開始演出（Part4）
+  if (window.princessFX?.startMagicIntro) {
+    window.princessFX.startMagicIntro();
+  }
+
+  // ② 曜日ミッション（Part5）
+  if (window.weekSystem?.applyTodayMission) {
+    window.weekSystem.applyTodayMission();
+  }
+
+  // ③ 初回セリフ（Part6）
+  if (window.lipSync?.talk) {
+    setTimeout(() => {
+      window.lipSync.talk("プリンセス通信へようこそ🌸", 2500);
+    }, 800);
+  }
+
+  // ④ 自動イベント開始（あれば）
+  if (window.princessFX?.startPetals) {
+    window.princessFX.startPetals();
+  }
+}
+
+/* =========================
+   ページ読み込みで起動
+========================= */
+window.addEventListener("load", () => {
+  startPrincessCommunication();
+});
+    
 
