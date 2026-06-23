@@ -10,23 +10,30 @@
 
 body {
 
-    overflow: hidden;
+    overflow-y:auto;
+    overflow-x:hidden;
 
-    width: 100vw;
-    height: 100vh;
+    width:100vw;
+    min-height:100vh;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display:flex;
+    flex-direction:column;
 
-    background: linear-gradient(
+    justify-content:flex-start;
+    align-items:center;
+
+    padding:30px 15px;
+
+    background:linear-gradient(
         180deg,
         #ffe7ff,
         #ffd8f5,
         #ffeefc
     );
 
+    font-family:"Yu Gothic",sans-serif;
+
+}
     font-family: "Yu Gothic", sans-serif;
 
 }
