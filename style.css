@@ -62,6 +62,7 @@ body {
     max-width:80vw;
    height:500px;
    object-fit: contain;
+  display: block;
 
     transition:0.12s;
 
