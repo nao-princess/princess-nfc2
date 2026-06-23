@@ -161,3 +161,23 @@ voice.addEventListener("error",()=>{
     alert("voice.mp3 が見つかりません。");
 
 });
+
+function getVoiceByDay(){
+
+    const day = new Date().getDay();
+
+    switch(day){
+
+        case 1: return "monday.mp3";
+        case 2: return "tuesday.mp3";
+        case 3: return "wednesday.mp3";
+        case 4: return "thursday.mp3";
+        case 5: return "friday.mp3";
+        case 6: return "saturday.mp3";
+        case 0: return "sunday.mp3";
+
+        default: return "voice.mp3";
+    }
+}
+
+
