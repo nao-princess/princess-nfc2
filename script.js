@@ -210,7 +210,7 @@ async function startPrincessSequence(){
     //最初はプリンセスを隠す
     princess.style.opacity = "0";
     //従者の声
-    await playAudio("servent.mp3");
+    await playAudio("servant.mp3");
 
     //プリンセス登場
     showprincess();
