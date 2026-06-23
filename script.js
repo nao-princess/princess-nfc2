@@ -220,3 +220,8 @@ async function startPrincessSequence(){
     playButton.disabled = false;
 
 }
+
+
+function showPrincess(){
+princess.style.opacity = "1";
+}
