@@ -161,7 +161,7 @@ function getVoiceByDay(){
         case 4:return "thursday.mp3";
         case 5:return "friday.mp3";
 
-        default:return "voice.mp3";
+        //default:return "voice.mp3";
 
     }
 
