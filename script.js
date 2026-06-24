@@ -1,158 +1,175 @@
 //======================================
-// プリンセス通信
+// プリンセス通信 Ver.2
 //======================================
-const princess = document.getElementById("princess");
+
 const jewel = document.getElementById("jewel");
-const playButton = document.getElementById("playButton");
+const princess = document.getElementById("princess");
 const voice = document.getElementById("voice");
 const message = document.getElementById("message");
 
+let isSequencing = false;
 let talking = false;
 let mouthTimer = null;
-let isSequencing = false;
+let princessMode = false;
 
 //======================================
 // 初期状態
 //======================================
-princess.src = "normal.png"; 
+
 princess.classList.remove("showPrincess");
-jewel.style.opacity = "1";
+message.textContent = "💎をタップして通信開始";
 
 //======================================
-// 待機中まばたき
+// キラキラ
 //======================================
-function blink() {
-  if (talking || isSequencing) return;
-  princess.src = "blink.png"; 
-  setTimeout(() => {
-    if (!talking) {
-      princess.src = "normal.png"; 
+
+function sparkle(count = 20){
+    for(let i=0;i<count;i++){
+        const star = document.createElement("div");
+        star.className = "sparkle";
+        star.textContent = Math.random() > 0.5 ? "✨" : "⭐";
+
+        star.style.left = (window.innerWidth/2 + (Math.random()*200 - 100)) + "px";
+        star.style.top = (window.innerHeight/2 - 80 + Math.random()*60) + "px";
+
+        document.body.appendChild(star);
+
+        setTimeout(() => star.remove(), 1200);
     }
-  }, 180);
-}
-
-function randomBlink() {
-  const next = Math.random() * 3000 + 2500;
-  setTimeout(() => {
-    blink();
-    randomBlink();
-  }, next);
-}
-randomBlink();
-
-//======================================
-// 口パク（★すべて小文字の .png に修正）
-//======================================
-function startTalking() {
-  talking = true;
-  let open = false;
-  mouthTimer = setInterval(() => {
-    open = !open;
-    princess.src = open ? "mouth_open.png" : "normal.png"; 
-  }, 180);
-}
-
-function stopTalking() {
-  talking = false;
-  clearInterval(mouthTimer);
-  princess.src = "normal.png"; 
 }
 
 //======================================
-// キラキラ生成
+// 口パク
 //======================================
-function sparkle() {
-  for(let i=0; i<20; i++){
-    const star = document.createElement("div");
-    star.className = "sparkle";
-    star.textContent = Math.random() > 0.5 ? "✨" : "⭐";
-    star.style.left = (window.innerWidth / 2 + (Math.random() * 220 - 110)) + "px";
-    star.style.top = (140 + Math.random() * 80) + "px";
-    document.body.appendChild(star);
-    setTimeout(() => {
-      star.remove();
-    }, 1200);
-  }
+
+function startTalking(){
+    talking = true;
+    let open = false;
+
+    mouthTimer = setInterval(() => {
+        open = !open;
+        princess.src = open ? "mouth_open.png" : "mouth_close.png";
+    }, 180);
+}
+
+function stopTalking(){
+    talking = false;
+    clearInterval(mouthTimer);
+    princess.src = "normal.png";
 }
 
 //======================================
 // 音声再生
 //======================================
+
 function playAudio(file){
-  return new Promise((resolve) => {
-    voice.src = file;
-    voice.load();
-    voice.onplay = () => { startTalking(); };
-    voice.onended = () => { stopTalking(); resolve(); };
-    voice.play();
-  });
+    return new Promise((resolve) => {
+        voice.src = file;
+        voice.load();
+
+        voice.onplay = () => {
+            startTalking();
+        };
+
+        voice.onended = () => {
+            stopTalking();
+            resolve();
+        };
+
+        voice.play();
+    });
 }
 
 //======================================
-// 曜日別音声
+// 変身（💎 → 👸）
 //======================================
-function getVoiceByDay(){
-  switch(new Date().getDay()){
-    case 1: return "monday.wav";
-    case 2: return "tuesday.wav";
-    case 3: return "wednesday.wav";
-    case 4: return "thursday.wav";
-    case 5: return "friday.wav";
-  }
+
+function transformToPrincess(){
+    jewel.style.opacity = "0";
+
+    setTimeout(() => {
+        princess.classList.add("showPrincess");
+        princessMode = true;
+    }, 600);
 }
 
 //======================================
-// メイン演出
+// 通信シーケンス
 //======================================
+
 async function startSequence(){
-  isSequencing = true; 
-  playButton.disabled = true;
-  message.textContent = "📡 通信を接続しています…";
-  document.body.classList.add("dark");
-  
-  sparkle();
-  await wait(1000); 
-  
-  princess.src = "normal.png"; 
-  
-  jewel.style.opacity = "0";
-  princess.classList.add("showPrincess");
-  sparkle();
-  
-  await wait(1500); 
-  
-  message.textContent = "👑 プリンセス通信を受信しています";
-  await playAudio("servant.wav");
-  await playAudio("goodmorning.wav");
-  await playAudio(getVoiceByDay());
-  await playAudio("princess_mode_on.wav");
-  
-  message.textContent = "✨ 通信終了";
-  playButton.disabled = false;
-  playButton.textContent = "▶ プリンセス通信を受信する";
-  document.body.classList.remove("dark");
-  isSequencing = false; 
+
+    if(isSequencing) return;
+
+    isSequencing = true;
+
+    document.body.classList.add("dark");
+
+    message.textContent = "📡 通信を接続しています…";
+
+    sparkle();
+
+    //--- 従者の声（💎のまま）
+    await playAudio("servant.wav");
+
+    //--- 変身
+    transformToPrincess();
+
+    await new Promise(r => setTimeout(r, 800));
+
+    //--- プリンセス登場後の会話
+    message.textContent = "✨ プリンセス通信開始";
+
+    await playAudio("goodmorning.wav");
+
+    await playAudio(getVoiceByDay());
+
+    sparkle();
+
+    await playAudio("princess_mode_on.wav");
+
+    message.textContent = "✨ 通信終了（プリンセスモードON）";
+
+    princessMode = true;
+
+    isSequencing = false;
+
+    document.body.classList.remove("dark");
 }
 
 //======================================
-// 待機
+// 曜日ボイス
 //======================================
-function wait(ms){
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
+
+function getVoiceByDay(){
+    switch(new Date().getDay()){
+        case 1: return "monday.wav";
+        case 2: return "tuesday.wav";
+        case 3: return "wednesday.wav";
+        case 4: return "thursday.wav";
+        case 5: return "friday.wav";
+        default: return "goodmorning.wav";
+    }
 }
 
 //======================================
-// ボタン
+// クリック操作
 //======================================
-playButton.addEventListener("click", () => {
-  startSequence();
+
+// 💎タップ → 通信開始
+jewel.addEventListener("click", startSequence);
+
+// 👸タップ → もう一度通信
+princess.addEventListener("click", () => {
+    if(princessMode && !isSequencing){
+        startSequence();
+    }
 });
 
 //======================================
 // エラー
 //======================================
+
 voice.addEventListener("error", () => {
-  alert("音声ファイルが見つかりません。");
+    alert("音声ファイルが見つかりません");
 });
