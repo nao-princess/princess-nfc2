@@ -134,7 +134,11 @@ body{
 
 #princess {
   width: 100%;
-  max-width: 280px;      /* パソコンやタブレットでの最大サイズ */
+ max-width: 160px;    /* パソコンやタブレットでの最大サイズ */
+   #princess.showPrincess {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
   height: auto;
   object-fit: contain;
   opacity: 0;            /* 最初は隠しておく */
