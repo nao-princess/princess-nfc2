@@ -11,20 +11,10 @@ let talking = false;
 let mouthTimer = null;
 let isSequencing = false;
 
-// 💡 拡張子の自動判別機能（エラーが出たら小文字/大文字を切り替える）
-princess.addEventListener("error", () => {
-  const currentSrc = princess.src;
-  if (currentSrc.endsWith(".PNG")) {
-    princess.src = currentSrc.replace(".PNG", ".png");
-  } else if (currentSrc.endsWith(".png")) {
-    princess.src = currentSrc.replace(".png", ".PNG");
-  }
-});
-
 //======================================
 // 初期状態
 //======================================
-princess.src = "normal.PNG"; 
+princess.src = "normal.png"; 
 princess.classList.remove("showPrincess");
 jewel.style.opacity = "1";
 
@@ -33,10 +23,10 @@ jewel.style.opacity = "1";
 //======================================
 function blink() {
   if (talking || isSequencing) return;
-  princess.src = "blink.PNG"; 
+  princess.src = "blink.png"; 
   setTimeout(() => {
     if (!talking) {
-      princess.src = "normal.PNG"; 
+      princess.src = "normal.png"; 
     }
   }, 180);
 }
@@ -51,21 +41,21 @@ function randomBlink() {
 randomBlink();
 
 //======================================
-// 口パク
+// 口パク（★すべて小文字の .png に修正）
 //======================================
 function startTalking() {
   talking = true;
   let open = false;
   mouthTimer = setInterval(() => {
     open = !open;
-    princess.src = open ? "mouth_open.PNG" : "mouth_close.PNG"; 
+    princess.src = open ? "mouth_open.png" : "mouth_close.png"; 
   }, 180);
 }
 
 function stopTalking() {
   talking = false;
   clearInterval(mouthTimer);
-  princess.src = "normal.PNG"; 
+  princess.src = "normal.png"; 
 }
 
 //======================================
@@ -123,7 +113,7 @@ async function startSequence(){
   sparkle();
   await wait(1000); 
   
-  princess.src = "normal.PNG"; 
+  princess.src = "normal.png"; 
   
   jewel.style.opacity = "0";
   princess.classList.add("showPrincess");
