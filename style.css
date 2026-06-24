@@ -134,22 +134,20 @@ body{
 
 #princess {
   width: 100%;
-  max-width: 280px;      /* スマホでも大きすぎない適切なサイズに固定 */
-  height: auto;          /* 縦横比を崩さない */
+  max-width: 280px;      /* パソコンやタブレットでの最大サイズ */
+  height: auto;
   object-fit: contain;
-  opacity: 0;
-  transform: scale(1);   /* 拡大を戻してシンプルに */
-  transition: opacity 0.5s ease; /* 記述を綺麗に修正 */
+  opacity: 0;            /* 最初は隠しておく */
+  visibility: hidden;    /* 完全に存在を隠す */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
   user-select: none;
 }
 
-/* 登場 */
-
-.showPrincess {
-  opacity: 1;
-  /* animation: float 3s ease-in-out infinite; */ /* ★この行をコメントアウト、または削除 */
+/* ボタンを押してこのクラスがついたら、確実に表示させる */
+#princess.showPrincess {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
-
 @keyframes float{
 
     0%{
@@ -312,44 +310,36 @@ body{
 /* =========================== スマホ =========================== */
 @media(max-width:768px){
   body {
-    padding: 15px 10px; /* 全体の余白を少し狭くして余裕を持たせる */
+    padding: 10px 5px; /* 上下の余白を削って画面に余裕を持たせる */
   }
 
-  #jewel{
-    font-size: 70px;    /* 宝石を少し小さくしてスペースを空ける */
-    margin-top: 10px;
+  #jewel {
+    font-size: 50px;    /* 宝石を小さくして上のスペースを空ける */
+    margin-top: 5px;
   }
   
   #princess {
-    width: 55vw;        /* 画像の横幅を少しスリムに */
-    max-height: 40vh;   /* 縦幅の制限を少し縮めて、下の文字が入るスペースを作る */
+    max-width: 160px;   /* スマホでは画像を一回り小さくして、下の文字が入るスペースを絶対に確保する */
   }
   
   #messageBox {
-    margin-top: 15px;   /* ボックスの上の余白を狭く */
-    padding: 15px;      /* 内側の余白を狭くしてコンパクトに */
+    margin-top: 10px;   
+    padding: 12px;      /* ボックスをコンパクトに */
   }
 
   #message {
-    font-size: 16px;    /* 文字を少しだけ小さくして見切れを防ぐ */
-    line-height: 1.6;
+    font-size: 15px;    /* 文字を少しだけ小さく */
+    line-height: 1.5;
   }
   
-  #messageBox h1{
-    font-size: 22px;    /* タイトル（プリンセス通信）のサイズを適切に小さく */
-    margin-bottom: 8px;
+  #messageBox h1 {
+    font-size: 18px;    /* 「プリンセス通信」を小さくして絶対に1行に収める */
+    margin-bottom: 5px;
   }
   
   #playButton {
     width: 100%;
-    font-size: 16px;
-    padding: 14px 20px; /* ボタンも少しコンパクトに */
+    font-size: 15px;
+    padding: 12px 15px; /* ボタンもコンパクトにして画面最下部に収める */
   }
-}
-
-/* JavaScriptで「showPrincess」がついた時、確実に表示させるための設定 */
-#princess.showPrincess {
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: block !important;
 }
