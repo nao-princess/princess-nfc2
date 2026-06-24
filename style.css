@@ -331,11 +331,6 @@ body{
     margin-top: 10px;
   }
   
-  #magicCircle{
-    width: 200px;
-    top: 60px;
-  }
-  
   #princess {
     width: 65vw;        /* 画像の横幅を少しスリムに */
     max-height: 40vh;   /* 縦幅の制限を少し縮めて、下の文字が入るスペースを作る */
