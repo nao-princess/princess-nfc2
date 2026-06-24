@@ -200,7 +200,7 @@ body{
     transform:scale(1.25);
 
     transition:
-        opacity 1s,
+        opacity 0.5s ease;
         transform 1s;
 
     user-select:none;
