@@ -346,3 +346,10 @@ body{
     padding: 14px 20px; /* ボタンも少しコンパクトに */
   }
 }
+
+/* JavaScriptで「showPrincess」がついた時、確実に表示させるための設定 */
+#princess.showPrincess {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
