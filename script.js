@@ -17,12 +17,12 @@ function blink(){
 
     if(talking) return;
 
-    princess.src = "blink.png";
+    princess.src = "blink.PNG";
 
     setTimeout(()=>{
 
         if(!talking){
-            princess.src = "normal.png";
+            princess.src = "normal.PNG";
         }
 
     },180);
@@ -65,11 +65,11 @@ function startTalking(){
 
         if(open){
 
-            princess.src="mouth_open.png";
+            princess.src="mouth_open.PNG";
 
         }else{
 
-            princess.src="mouth_close.png";
+            princess.src="mouth_close.PNG";
 
         }
 
