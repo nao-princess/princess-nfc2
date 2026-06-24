@@ -1,24 +1,28 @@
-//==============================
+//======================================
 // プリンセス通信
-//==============================
+//======================================
 
 const princess = document.getElementById("princess");
 const jewel = document.getElementById("jewel");
+const magicCircle = document.getElementById("magicCircle");
 const playButton = document.getElementById("playButton");
 const voice = document.getElementById("voice");
 const message = document.getElementById("message");
 
 let talking = false;
-let mouthAnimation;
+let mouthTimer = null;
 
-// 最初の状態
-princess.style.opacity = "0";
+//======================================
+// 初期状態
+//======================================
+
+princess.classList.remove("showPrincess");
 jewel.style.opacity = "1";
+magicCircle.style.opacity = "0";
 
-
-//==============================
-// まばたき
-//==============================
+//======================================
+// 待機中まばたき
+//======================================
 
 function blink() {
 
@@ -38,7 +42,7 @@ function blink() {
 
 function randomBlink() {
 
-    const next = Math.random() * 3000 + 2000;
+    const next = Math.random() * 3000 + 2500;
 
     setTimeout(() => {
 
@@ -51,10 +55,9 @@ function randomBlink() {
 
 randomBlink();
 
-
-//==============================
+//======================================
 // 口パク
-//==============================
+//======================================
 
 function startTalking() {
 
@@ -62,11 +65,13 @@ function startTalking() {
 
     let open = false;
 
-    mouthAnimation = setInterval(() => {
+    mouthTimer = setInterval(() => {
 
         open = !open;
 
-        princess.src = open ? "mouth_open.PNG" : "mouth_close.PNG";
+        princess.src = open
+            ? "mouth_open.PNG"
+            : "mouth_close.PNG";
 
     }, 180);
 
@@ -76,31 +81,64 @@ function stopTalking() {
 
     talking = false;
 
-    clearInterval(mouthAnimation);
+    clearInterval(mouthTimer);
 
-    princess.src = "normal.png";
+    princess.src = "normal.PNG";
 
 }
 
+//======================================
+// キラキラ生成
+//======================================
 
-//==============================
+function sparkle() {
+
+    for(let i=0;i<20;i++){
+
+        const star=document.createElement("div");
+
+        star.className="sparkle";
+
+        star.textContent=Math.random()>0.5 ? "✨":"⭐";
+
+        star.style.left=(window.innerWidth/2+(Math.random()*220-110))+"px";
+
+        star.style.top=(140+Math.random()*80)+"px";
+
+        document.body.appendChild(star);
+
+        setTimeout(()=>{
+
+            star.remove();
+
+        },1200);
+
+    }
+
+}
+
+//======================================
 // 音声再生
-//==============================
+//======================================
 
-function playAudio(file) {
+function playAudio(file){
 
-    return new Promise((resolve) => {
+    return new Promise((resolve)=>{
 
-        voice.src = file;
+        voice.src=file;
         voice.load();
 
-        voice.onended = () => {
-            stopTalking();
-            resolve();
+        voice.onplay=()=>{
+
+            startTalking();
+
         };
 
-        voice.onplay = () => {
-            startTalking();
+        voice.onended=()=>{
+
+            stopTalking();
+            resolve();
+
         };
 
         voice.play();
@@ -109,98 +147,113 @@ function playAudio(file) {
 
 }
 
-
-//==============================
+//======================================
 // 曜日別音声
-//==============================
+//======================================
 
-function getVoiceByDay() {
+function getVoiceByDay(){
 
-    switch (new Date().getDay()) {
+    switch(new Date().getDay()){
 
-        case 1: return "monday.mp3";
-        case 2: return "tuesday.mp3";
-        case 3: return "wednesday.mp3";
-        case 4: return "thursday.mp3";
-        case 5: return "friday.mp3";
+        case 1:return "monday.mp3";
+        case 2:return "tuesday.mp3";
+        case 3:return "wednesday.mp3";
+        case 4:return "thursday.mp3";
+        case 5:return "friday.mp3";
 
-        default:
-            return "voice.mp3";
+        default:return "voice.mp3";
 
     }
 
 }
 
+//======================================
+// メイン演出
+//======================================
 
-//==============================
-// プリンセス登場
-//==============================
+async function startSequence(){
 
-function showPrincess() {
+    playButton.disabled=true;
 
-    jewel.style.opacity = "0";
-    princess.style.opacity = "1";
+    message.textContent="📡 通信を接続しています…";
 
-}
+    document.body.classList.add("dark");
 
+    //宝石キラキラ
 
-//==============================
-// メインシーケンス
-//==============================
+    sparkle();
 
-async function startPrincessSequence() {
+    await wait(1000);
 
-    playButton.disabled = true;
-    playButton.textContent = "通信中…";
+    //魔法陣
 
-    message.textContent = "📡 通信を受信しています…";
+    magicCircle.style.opacity="1";
 
-    princess.style.opacity = "0";
-    jewel.style.opacity = "1";
+    magicCircle.style.transform="translateX(-50%) scale(1)";
 
-    // 従者
+    await wait(1500);
+
+    //プリンセス登場
+
+    jewel.style.opacity="0";
+
+    princess.classList.add("showPrincess");
+
+    sparkle();
+
+    await wait(800);
+
+    //通信開始
+
+    message.textContent="👑 プリンセス通信を受信しています";
+
     await playAudio("servant.wav");
 
-    // 登場
-    showPrincess();
-
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    // あいさつ
     await playAudio("goodmorning.wav");
 
-    // 曜日
     await playAudio(getVoiceByDay());
 
-    // プリンセスモード
     await playAudio("princess_mode_on.wav");
 
-    message.textContent = "✨ 通信が終了しました";
+    message.textContent="✨ 通信終了";
 
-    playButton.disabled = false;
-    playButton.textContent = "▶ プリンセス通信を受信する";
+    playButton.disabled=false;
+
+    playButton.textContent="▶ プリンセス通信を受信する";
+
+    document.body.classList.remove("dark");
 
 }
 
+//======================================
+// 待機
+//======================================
 
-//==============================
+function wait(ms){
+
+    return new Promise(resolve=>{
+
+        setTimeout(resolve,ms);
+
+    });
+
+}
+
+//======================================
 // ボタン
-//==============================
+//======================================
 
-playButton.addEventListener("click", () => {
+playButton.addEventListener("click",()=>{
 
-    if (!voice.paused) return;
-
-    startPrincessSequence();
+    startSequence();
 
 });
 
-
-//==============================
+//======================================
 // エラー
-//==============================
+//======================================
 
-voice.addEventListener("error", () => {
+voice.addEventListener("error",()=>{
 
     alert("音声ファイルが見つかりません。");
 
