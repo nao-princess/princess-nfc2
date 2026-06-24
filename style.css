@@ -209,15 +209,9 @@ body{
 
 /* 登場 */
 
-.showPrincess{
-
-    opacity:1 !important;
-
-    transform:scale(1) !important;
-
-    animation:
-        float 4s ease-in-out infinite;
-
+.showPrincess {
+  opacity: 1;
+  /* animation: float 3s ease-in-out infinite; */ /* ★この行をコメントアウト、または削除 */
 }
 
 @keyframes float{
