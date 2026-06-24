@@ -11,10 +11,20 @@ let talking = false;
 let mouthTimer = null;
 let isSequencing = false;
 
+// 💡 拡張子の自動判別機能（エラーが出たら小文字/大文字を切り替える）
+princess.addEventListener("error", () => {
+  const currentSrc = princess.src;
+  if (currentSrc.endsWith(".PNG")) {
+    princess.src = currentSrc.replace(".PNG", ".png");
+  } else if (currentSrc.endsWith(".png")) {
+    princess.src = currentSrc.replace(".png", ".PNG");
+  }
+});
+
 //======================================
 // 初期状態
 //======================================
-princess.src = "normal.PNG";
+princess.src = "normal.PNG"; 
 princess.classList.remove("showPrincess");
 jewel.style.opacity = "1";
 
@@ -23,10 +33,10 @@ jewel.style.opacity = "1";
 //======================================
 function blink() {
   if (talking || isSequencing) return;
-  princess.src = "blink.PNG";
+  princess.src = "blink.PNG"; 
   setTimeout(() => {
     if (!talking) {
-      princess.src = "normal.PNG";
+      princess.src = "normal.PNG"; 
     }
   }, 180);
 }
@@ -48,14 +58,14 @@ function startTalking() {
   let open = false;
   mouthTimer = setInterval(() => {
     open = !open;
-    princess.src = open ? "mouth_open.PNG" : "mouth_close.PNG";
+    princess.src = open ? "mouth_open.PNG" : "mouth_close.PNG"; 
   }, 180);
 }
 
 function stopTalking() {
   talking = false;
   clearInterval(mouthTimer);
-  princess.src = "normal.PNG";
+  princess.src = "normal.PNG"; 
 }
 
 //======================================
@@ -101,43 +111,37 @@ function getVoiceByDay(){
   }
 }
 
- //======================================
+//======================================
 // メイン演出
 //======================================
 async function startSequence(){
-  isSequencing = true; // 演出開始（まばたきをストップ）
+  isSequencing = true; 
   playButton.disabled = true;
   message.textContent = "📡 通信を接続しています…";
   document.body.classList.add("dark");
   
-  // 宝石キラキラ
   sparkle();
   await wait(1000); 
   
-  // 先に画像を「通常状態」に確実に固定する
-  princess.src = "normal.PNG";
+  princess.src = "normal.PNG"; 
   
-  // プリンセスを登場させる
   jewel.style.opacity = "0";
   princess.classList.add("showPrincess");
   sparkle();
   
-  // ★重要：登場アニメーション（CSS）が完全に終わるまでしっかり待つ（1.5秒）
   await wait(1500); 
   
-  // 通信開始（ここから口パクが始まります）
   message.textContent = "👑 プリンセス通信を受信しています";
   await playAudio("servant.wav");
   await playAudio("goodmorning.wav");
   await playAudio(getVoiceByDay());
   await playAudio("princess_mode_on.wav");
   
-  // 終了処理
   message.textContent = "✨ 通信終了";
   playButton.disabled = false;
   playButton.textContent = "▶ プリンセス通信を受信する";
   document.body.classList.remove("dark");
-  isSequencing = false; // 演出終了
+  isSequencing = false; 
 }
 
 //======================================
