@@ -14,6 +14,7 @@ let isSequencing = false;
 //======================================
 // 初期状態
 //======================================
+princess.src = "normal.PNG";
 princess.classList.remove("showPrincess");
 jewel.style.opacity = "1";
 
