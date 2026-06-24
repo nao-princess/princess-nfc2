@@ -155,11 +155,11 @@ function getVoiceByDay(){
 
     switch(new Date().getDay()){
 
-        case 1:return "monday.mp3";
-        case 2:return "tuesday.mp3";
-        case 3:return "wednesday.mp3";
-        case 4:return "thursday.mp3";
-        case 5:return "friday.mp3";
+        case 1:return "monday.wav";
+        case 2:return "tuesday.wav";
+        case 3:return "wednesday.wav";
+        case 4:return "thursday.wav";
+        case 5:return "friday.wav";
 
         //default:return "voice.mp3";
 
