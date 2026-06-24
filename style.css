@@ -260,12 +260,15 @@ body{
    通信中
 =========================== */
 
-.dark{
+/* 背景のグラデーション部分や、後ろの要素だけを暗くする */
+.dark :not(#princessArea):not(#princess) {
+  filter: brightness(.4);
+  transition: filter 1s;
+}
 
-    filter:brightness(.65);
-
-    transition:filter 1s;
-
+/* プリンセス自体は通信中もずっと明るいままキープ */
+#princess {
+  filter: brightness(1) !important;
 }
 
 /* ===========================
