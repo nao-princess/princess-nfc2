@@ -10,6 +10,9 @@ const voice = document.getElementById("voice");
 const message = document.getElementById("message");
 
 let talking = false;
+et talking = false;
+let mouthTimer = null;
+let isSequencing = false;
 let mouthTimer = null;
 
 //======================================
@@ -26,7 +29,7 @@ magicCircle.style.opacity = "0";
 
 function blink() {
 
-    if (talking) return;
+  if (talking || isSequencing) return;
 
     princess.src = "blink.PNG";
 
@@ -172,7 +175,7 @@ function getVoiceByDay(){
 //======================================
 
 async function startSequence(){
-
+isSequencing = true; // ★演出開始
     playButton.disabled=true;
 
     message.textContent="📡 通信を接続しています…";
@@ -222,7 +225,8 @@ async function startSequence(){
     playButton.textContent="▶ プリンセス通信を受信する";
 
     document.body.classList.remove("dark");
-
+    
+isSequencing = false; // ★演出終了
 }
 
 //======================================
