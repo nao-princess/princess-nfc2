@@ -117,59 +117,6 @@ body{
 }
 
 /* ===========================
-   魔法陣
-=========================== */
-
-#magicCircle{
-
-    position:absolute;
-
-    top:90px;
-
-    left:50%;
-
-    width:320px;
-
-    transform:
-        translateX(-50%)
-        scale(.6);
-
-    opacity:0;
-
-    transition:
-        opacity 1s,
-        transform 1s;
-
-    animation:
-        rotateCircle 10s linear infinite;
-
-    pointer-events:none;
-
-}
-
-@keyframes rotateCircle{
-
-    from{
-
-        transform:
-        translateX(-50%)
-        rotate(0deg)
-        scale(1);
-
-    }
-
-    to{
-
-        transform:
-        translateX(-50%)
-        rotate(360deg)
-        scale(1);
-
-    }
-
-}
-
-/* ===========================
    プリンセス
 =========================== */
 
