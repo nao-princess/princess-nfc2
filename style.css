@@ -1,5 +1,5 @@
 /* =======================================
-   プリンセス通信
+   プリンセス通信 Ver.2
 ======================================= */
 
 *{
@@ -10,19 +10,15 @@
 
 body{
 
-    position:relative;
-
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow:hidden;
 
     width:100vw;
-    min-height:100vh;
+    height:100vh;
 
     display:flex;
     flex-direction:column;
     align-items:center;
-
-    padding:30px 20px;
+    justify-content:center;
 
     background:linear-gradient(
         180deg,
@@ -32,6 +28,8 @@ body{
     );
 
     font-family:"Yu Gothic",sans-serif;
+
+    position:relative;
 
 }
 
@@ -45,9 +43,26 @@ body{
     inset:0;
 
     background:
-    radial-gradient(circle at top,#ffffff55,transparent 60%);
+        radial-gradient(circle at top,#ffffff66,transparent 60%);
 
     z-index:-10;
+
+}
+
+/* ===========================
+   魔法エリア
+=========================== */
+
+#magicArea{
+
+    position:relative;
+
+    width:220px;
+    height:240px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
 }
 
@@ -57,15 +72,17 @@ body{
 
 #jewel{
 
+    position:absolute;
+
     font-size:120px;
 
-    margin-top:20px;
+    cursor:pointer;
 
     opacity:1;
 
     transition:
-        opacity 1s,
-        transform 1s;
+        opacity .8s,
+        transform .8s;
 
     filter:
         drop-shadow(0 0 10px #8cf)
@@ -76,21 +93,21 @@ body{
         jewelFloat 2.5s ease-in-out infinite,
         jewelGlow 1.6s ease-in-out infinite;
 
+    z-index:2;
+
+}
+
+#jewel:hover{
+
+    transform:scale(1.08);
+
 }
 
 @keyframes jewelFloat{
 
-    0%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-10px);
-    }
-
-    100%{
-        transform:translateY(0px);
-    }
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0);}
 
 }
 
@@ -120,47 +137,54 @@ body{
    プリンセス
 =========================== */
 
-#princessArea{
+#princess{
 
-    width:100%;
+    position:absolute;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    width:170px;
 
-    margin-top:20px;
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:scale(.7);
+
+    transition:
+        opacity .8s,
+        transform .8s;
+
+    user-select:none;
+
+    cursor:pointer;
+
+    z-index:3;
 
 }
 
-#princess {
-  width: 100%;
- max-width: 160px;    /* パソコンやタブレットでの最大サイズ */
-   
-  height: auto;
-  object-fit: contain;
-  opacity: 0;            /* 最初は隠しておく */
-  visibility: hidden;    /* 完全に存在を隠す */
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-  user-select: none;
+#princess.showPrincess{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:scale(1);
+
+    animation:float 3s ease-in-out infinite;
+
 }
 
-/* ボタンを押してこのクラスがついたら、確実に表示させる */
-#princess.showPrincess {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
 @keyframes float{
 
     0%{
-        transform:translateY(0px);
+        transform:translateY(0);
     }
 
     50%{
-        transform:translateY(-10px);
+        transform:translateY(-8px);
     }
 
     100%{
-        transform:translateY(0px);
+        transform:translateY(0);
     }
 
 }
@@ -171,88 +195,31 @@ body{
 
 #messageBox{
 
-    margin-top:30px;
+    margin-top:20px;
 
-    width:min(600px,90vw);
+    width:min(500px,90vw);
+
+    min-height:90px;
 
     background:white;
 
     border-radius:25px;
 
-    padding:25px;
+    padding:20px;
 
     text-align:center;
 
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.15);
-
-}
-
-#messageBox h1{
-
-    color:#ff4db8;
-
-    margin-bottom:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
 
 }
 
 #message{
 
+    font-size:20px;
+
     color:#555;
 
-    font-size:20px;
-
-    line-height:1.8;
-
-}
-
-/* ===========================
-   ボタン
-=========================== */
-
-#buttonArea{
-
-    margin-top:25px;
-
-}
-
-#playButton{
-
-    border:none;
-
-    background:#ff66cc;
-
-    color:white;
-
-    border-radius:50px;
-
-    padding:18px 35px;
-
-    font-size:20px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-#playButton:hover{
-
-    transform:scale(1.06);
-
-}
-
-#playButton:active{
-
-    transform:scale(.95);
-
-}
-
-#playButton:disabled{
-
-    opacity:.6;
-
-    cursor:default;
+    line-height:1.6;
 
 }
 
@@ -260,15 +227,39 @@ body{
    通信中
 =========================== */
 
-/* 背景のグラデーション部分や、後ろの要素だけを暗くする */
-.dark :not(#princessArea):not(#princess) {
-  filter: brightness(.4);
-  transition: filter 1s;
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    opacity:0;
+
+    transition:opacity .8s;
+
+    pointer-events:none;
+
+    z-index:1;
+
 }
 
-/* プリンセス自体は通信中もずっと明るいままキープ */
-#princess {
-  filter: brightness(1) !important;
+body.dark::after{
+
+    opacity:1;
+
+}
+
+#magicArea,
+#messageBox{
+
+    position:relative;
+
+    z-index:2;
+
 }
 
 /* ===========================
@@ -311,39 +302,41 @@ body{
 
 }
 
-/* =========================== スマホ =========================== */
+/* ===========================
+   スマホ
+=========================== */
+
 @media(max-width:768px){
-  body {
-    padding: 10px 5px; /* 上下の余白を削って画面に余裕を持たせる */
-  }
 
-  #jewel {
-    font-size: 50px;    /* 宝石を小さくして上のスペースを空ける */
-    margin-top: 5px;
-  }
-  
-  #princess {
-    max-width: 160px;   /* スマホでは画像を一回り小さくして、下の文字が入るスペースを絶対に確保する */
-  }
-  
-  #messageBox {
-    margin-top: 10px;   
-    padding: 12px;      /* ボックスをコンパクトに */
-  }
+    #magicArea{
 
-  #message {
-    font-size: 15px;    /* 文字を少しだけ小さく */
-    line-height: 1.5;
-  }
-  
-  #messageBox h1 {
-    font-size: 18px;    /* 「プリンセス通信」を小さくして絶対に1行に収める */
-    margin-bottom: 5px;
-  }
-  
-  #playButton {
-    width: 100%;
-    font-size: 15px;
-    padding: 12px 15px; /* ボタンもコンパクトにして画面最下部に収める */
-  }
+        width:180px;
+        height:200px;
+
+    }
+
+    #jewel{
+
+        font-size:90px;
+
+    }
+
+    #princess{
+
+        width:145px;
+
+    }
+
+    #message{
+
+        font-size:16px;
+
+    }
+
+    #messageBox{
+
+        padding:15px;
+
+    }
+
 }
