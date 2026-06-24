@@ -48,7 +48,7 @@ function startTalking() {
   let open = false;
   mouthTimer = setInterval(() => {
     open = !open;
-    princess.src = open ? "mouth_open.png" : "mouth_close.png"; 
+    princess.src = open ? "mouth_open.png" : "normal.png"; 
   }, 180);
 }
 
