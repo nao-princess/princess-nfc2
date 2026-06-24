@@ -100,11 +100,12 @@ function getVoiceByDay(){
   }
 }
 
-//======================================
-// メイン演出（魔法陣をカット）
+audio("princess_mode_on.wav");
+ //======================================
+// メイン演出
 //======================================
 async function startSequence(){
-  isSequencing = true; // 演出開始
+  isSequencing = true; // 演出開始（まばたきをストップ）
   playButton.disabled = true;
   message.textContent = "📡 通信を接続しています…";
   document.body.classList.add("dark");
@@ -113,13 +114,18 @@ async function startSequence(){
   sparkle();
   await wait(1000); 
   
-  // 【変更】魔法陣の演出（1.5秒）をカットし、すぐにプリンセスが登場
+  // 先に画像を「通常状態」に確実に固定する
+  princess.src = "normal.PNG";
+  
+  // プリンセスを登場させる
   jewel.style.opacity = "0";
   princess.classList.add("showPrincess");
   sparkle();
-  await wait(800);
   
-  // 通信開始
+  // ★重要：登場アニメーション（CSS）が完全に終わるまでしっかり待つ（1.5秒）
+  await wait(1500); 
+  
+  // 通信開始（ここから口パクが始まります）
   message.textContent = "👑 プリンセス通信を受信しています";
   await playAudio("servant.wav");
   await playAudio("goodmorning.wav");
