@@ -320,52 +320,45 @@ body{
 
 }
 
-/* ===========================
-   スマホ
-=========================== */
-
+/* =========================== スマホ =========================== */
 @media(max-width:768px){
+  body {
+    padding: 15px 10px; /* 全体の余白を少し狭くして余裕を持たせる */
+  }
 
-    #jewel{
+  #jewel{
+    font-size: 70px;    /* 宝石を少し小さくしてスペースを空ける */
+    margin-top: 10px;
+  }
+  
+  #magicCircle{
+    width: 200px;
+    top: 60px;
+  }
+  
+  #princess {
+    width: 65vw;        /* 画像の横幅を少しスリムに */
+    max-height: 40vh;   /* 縦幅の制限を少し縮めて、下の文字が入るスペースを作る */
+  }
+  
+  #messageBox {
+    margin-top: 15px;   /* ボックスの上の余白を狭く */
+    padding: 15px;      /* 内側の余白を狭くしてコンパクトに */
+  }
 
-        font-size:90px;
-
-    }
-
-    #magicCircle{
-
-        width:240px;
-
-        top:80px;
-
-    }
-
-    #princess{
-
-        width:75vw;
-
-        max-height:50vh;
-
-    }
-
-    #message{
-
-        font-size:17px;
-
-    }
-
-    #messageBox h1{
-
-        font-size:28px;
-
-    }
-
-    #playButton{
-
-        width:100%;
-
-        font-size:18px;
-
-    }
-
+  #message {
+    font-size: 16px;    /* 文字を少しだけ小さくして見切れを防ぐ */
+    line-height: 1.6;
+  }
+  
+  #messageBox h1{
+    font-size: 22px;    /* タイトル（プリンセス通信）のサイズを適切に小さく */
+    margin-bottom: 8px;
+  }
+  
+  #playButton {
+    width: 100%;
+    font-size: 16px;
+    padding: 14px 20px; /* ボタンも少しコンパクトに */
+  }
 }
