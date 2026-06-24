@@ -132,26 +132,15 @@ body{
 
 }
 
-#princess{
-
-    width:380px;
-
-    max-width:80vw;
-
-    max-height:500px;
-
-    object-fit:contain;
-
-    opacity:0;
-
-    transform:scale(1.25);
-
-    transition:
-        opacity 0.5s ease;
-        transform 1s;
-
-    user-select:none;
-
+#princess {
+  width: 100%;
+  max-width: 280px;      /* スマホでも大きすぎない適切なサイズに固定 */
+  height: auto;          /* 縦横比を崩さない */
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(1);   /* 拡大を戻してシンプルに */
+  transition: opacity 0.5s ease; /* 記述を綺麗に修正 */
+  user-select: none;
 }
 
 /* 登場 */
@@ -332,7 +321,7 @@ body{
   }
   
   #princess {
-    width: 65vw;        /* 画像の横幅を少しスリムに */
+    width: 55vw;        /* 画像の横幅を少しスリムに */
     max-height: 40vh;   /* 縦幅の制限を少し縮めて、下の文字が入るスペースを作る */
   }
   
