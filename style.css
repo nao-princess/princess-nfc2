@@ -98,27 +98,27 @@ body{
    紙吹雪（新）
 =========================== */
 
-.confetti{
-    position:fixed;
-    width:10px;
-    height:14px;
-    top:50%;
-    left:50%;
-    opacity:0;
-    animation:shoot 1.2s ease-out forwards;
+const end = Date.now() + 2000;
+
+  (function frame() {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0, y: 0.8 },
+      colors: ['#ffe6f2', '#d81b60', '#ffb3d9', '#ffffff'] // プリンセス風の色合い
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1, y: 0.8 },
+      colors: ['#ffe6f2', '#d81b60', '#ffb3d9', '#ffffff']
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  }());
 }
 
-@keyframes shoot{
-
-    0%{
-        transform:translate(0,0) rotate(0deg);
-        opacity:1;
-    }
-
-    100%{
-        transform:
-            translate(var(--x), var(--y))
-            rotate(720deg);
-        opacity:0;
-    }
-}
