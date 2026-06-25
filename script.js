@@ -11,34 +11,32 @@ let mouthTimer = null;
    紙吹雪（両脇下からパンッ）
 =========================== */
 
-function confettiBurst(){
 
-    for(let i=0;i<25;i++){
 
-        const c = document.createElement("div");
-        c.className = "confetti";
+    const end = Date.now() + 2000;
 
-        // 左右どっちか
-        const side = Math.random() > 0.5 ? -1 : 1;
+  (function confettiBurst() {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0, y: 0.8 },
+      colors: ['#ffe6f2', '#d81b60', '#ffb3d9', '#ffffff'] // プリンセス風の色合い
+    });
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1, y: 0.8 },
+      colors: ['#ffe6f2', '#d81b60', '#ffb3d9', '#ffffff']
+    });
 
-        c.style.left = (window.innerWidth/2 + side * 120) + "px";
-        c.style.top = (window.innerHeight/2 + 120) + "px";
-
-        c.style.background = randomColor();
-
-        c.style.setProperty("--x", (side * (100 + Math.random()*200)) + "px");
-        c.style.setProperty("--y", (-200 - Math.random()*300) + "px");
-
-        document.body.appendChild(c);
-
-        setTimeout(()=>c.remove(),1200);
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
     }
+  }());
 }
-
-function randomColor(){
-    const colors = ["#ff6bd6","#ffd36b","#6bd6ff","#9dff6b","#ffffff"];
-    return colors[Math.floor(Math.random()*colors.length)];
-}
+前
 
 /* ===========================
    口パク
