@@ -1,17 +1,9 @@
-/* =======================================
-   プリンセス通信 Ver.2
-======================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+/* ===========================
+   背景（最初のプリンセス通信風ピンク）
+=========================== */
 
 body{
-
     overflow:hidden;
-
     width:100vw;
     height:100vh;
 
@@ -23,30 +15,11 @@ body{
     background:linear-gradient(
         180deg,
         #ffe7ff,
-        #ffd8f5,
+        #ffc7ea,
         #ffeefc
     );
 
     font-family:"Yu Gothic",sans-serif;
-
-    position:relative;
-
-}
-
-/* ===========================
-   背景
-=========================== */
-
-.background{
-
-    position:fixed;
-    inset:0;
-
-    background:
-        radial-gradient(circle at top,#ffffff66,transparent 60%);
-
-    z-index:-10;
-
 }
 
 /* ===========================
@@ -54,16 +27,12 @@ body{
 =========================== */
 
 #magicArea{
-
     position:relative;
-
-    width:220px;
-    height:240px;
-
+    width:260px;
+    height:300px;
     display:flex;
     justify-content:center;
     align-items:center;
-
 }
 
 /* ===========================
@@ -71,66 +40,19 @@ body{
 =========================== */
 
 #jewel{
-
     position:absolute;
-
-    font-size:120px;
-
+    font-size:170px; /* ←大きく */
     cursor:pointer;
-
-    opacity:1;
-
-    transition:
-        opacity .8s,
-        transform .8s;
+    transition:transform .4s, opacity .6s;
 
     filter:
-        drop-shadow(0 0 10px #8cf)
-        drop-shadow(0 0 20px #9ff)
-        drop-shadow(0 0 35px white);
-
-    animation:
-        jewelFloat 2.5s ease-in-out infinite,
-        jewelGlow 1.6s ease-in-out infinite;
-
-    z-index:2;
-
+        drop-shadow(0 0 15px #8cf)
+        drop-shadow(0 0 30px #9ff)
+        drop-shadow(0 0 50px white);
 }
 
 #jewel:hover{
-
-    transform:scale(1.08);
-
-}
-
-@keyframes jewelFloat{
-
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0);}
-
-}
-
-@keyframes jewelGlow{
-
-    0%{
-        filter:
-        drop-shadow(0 0 10px #8cf)
-        drop-shadow(0 0 20px #9ff);
-    }
-
-    50%{
-        filter:
-        drop-shadow(0 0 25px white)
-        drop-shadow(0 0 45px #9ff);
-    }
-
-    100%{
-        filter:
-        drop-shadow(0 0 10px #8cf)
-        drop-shadow(0 0 20px #9ff);
-    }
-
+    transform:scale(1.1);
 }
 
 /* ===========================
@@ -138,55 +60,19 @@ body{
 =========================== */
 
 #princess{
-
     position:absolute;
-
-    width:170px;
-
+    width:230px; /* ←大きく */
     opacity:0;
-
     visibility:hidden;
-
-    transform:scale(.7);
-
-    transition:
-        opacity .8s,
-        transform .8s;
-
-    user-select:none;
-
+    transform:scale(.8);
+    transition:opacity .6s, transform .6s;
     cursor:pointer;
-
-    z-index:3;
-
 }
 
 #princess.showPrincess{
-
     opacity:1;
-
     visibility:visible;
-
     transform:scale(1);
-
-    animation:float 3s ease-in-out infinite;
-
-}
-
-@keyframes float{
-
-    0%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-8px);
-    }
-
-    100%{
-        transform:translateY(0);
-    }
-
 }
 
 /* ===========================
@@ -194,149 +80,45 @@ body{
 =========================== */
 
 #messageBox{
-
-    margin-top:20px;
-
+    margin-top:15px;
     width:min(500px,90vw);
-
-    min-height:90px;
-
     background:white;
-
-    border-radius:25px;
-
-    padding:20px;
-
+    border-radius:20px;
+    padding:18px;
     text-align:center;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
-
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
 #message{
-
-    font-size:20px;
-
+    font-size:18px;
     color:#555;
-
-    line-height:1.6;
-
 }
 
 /* ===========================
-   通信中
+   紙吹雪（新）
 =========================== */
 
-body::after{
-
-    content:"";
-
+.confetti{
     position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.45);
-
+    width:10px;
+    height:14px;
+    top:50%;
+    left:50%;
     opacity:0;
-
-    transition:opacity .8s;
-
-    pointer-events:none;
-
-    z-index:1;
-
+    animation:shoot 1.2s ease-out forwards;
 }
 
-body.dark::after{
+@keyframes shoot{
 
-    opacity:1;
-
-}
-
-#magicArea,
-#messageBox{
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-/* ===========================
-   キラキラ
-=========================== */
-
-.sparkle{
-
-    position:absolute;
-
-    font-size:28px;
-
-    pointer-events:none;
-
-    animation:sparkle 1.2s forwards;
-
-}
-
-@keyframes sparkle{
-
-    from{
-
+    0%{
+        transform:translate(0,0) rotate(0deg);
         opacity:1;
-
-        transform:
-            translateY(0)
-            scale(0);
-
     }
 
-    to{
-
+    100%{
+        transform:
+            translate(var(--x), var(--y))
+            rotate(720deg);
         opacity:0;
-
-        transform:
-            translateY(-120px)
-            scale(2);
-
     }
-
-}
-
-/* ===========================
-   スマホ
-=========================== */
-
-@media(max-width:768px){
-
-    #magicArea{
-
-        width:180px;
-        height:200px;
-
-    }
-
-    #jewel{
-
-        font-size:90px;
-
-    }
-
-    #princess{
-
-        width:145px;
-
-    }
-
-    #message{
-
-        font-size:16px;
-
-    }
-
-    #messageBox{
-
-        padding:15px;
-
-    }
-
 }
